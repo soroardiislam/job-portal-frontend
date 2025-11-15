@@ -6,6 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Edit2, Eye, MoreHorizontal, Trash2 } from 'lucide-react' 
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const AdminJobsTable = () => { 
     const {allAdminJobs, searchJobByText} = useSelector(store=>store.job);
@@ -13,8 +14,15 @@ const AdminJobsTable = () => {
     const [filterJobs, setFilterJobs] = useState(allAdminJobs);
     const navigate = useNavigate();
 
+    const handleDeleteJob = (id) =>{
+        console.log(id);
+        axios.delete(`http://localhost:8000/api/v1/job/delete/${id}`)
+        .then(res =>console.log(res.data))
+        .catch(err => console.log(err))
+    }
+
     useEffect(()=>{ 
-        console.log('called');
+        // console.log('called');
         const filteredJobs = allAdminJobs.filter((job)=>{
             if(!searchJobByText){
                 return true;
