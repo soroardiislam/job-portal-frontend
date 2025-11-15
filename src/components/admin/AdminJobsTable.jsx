@@ -39,7 +39,7 @@ const AdminJobsTable = () => {
                 <TableBody>
                     {
                         filterJobs?.map((job) => (
-                            <tr key={job._id}> {/* Added key property */}
+                            <tr key={job._id}> 
                                 <TableCell>{job?.company?.name}</TableCell>
                                 <TableCell>{job?.title}</TableCell>
                                 <TableCell>{job?.createdAt.split("T")[0]}</TableCell>
@@ -51,7 +51,7 @@ const AdminJobsTable = () => {
                                                 onClick={() => handleDeleteJob(job._id)} 
                                                 className='flex items-center gap-2 w-fit cursor-pointer text-red-600 hover:bg-red-50/50 p-1 rounded' 
                                                 >
-                                                {/* Trash2 is now defined because it was imported */}
+                                             
                                                 <Trash2 className='w-4' /> 
                                                 <span>Delete</span>
                                             </div>
