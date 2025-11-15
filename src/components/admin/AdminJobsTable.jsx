@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
-import { Edit2, Eye, MoreHorizontal } from 'lucide-react'
+// FIX: Add Trash2 to the imports list
+import { Edit2, Eye, MoreHorizontal, Trash2 } from 'lucide-react' 
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -26,7 +27,7 @@ const AdminJobsTable = () => {
     return (
         <div>
             <Table>
-                <TableCaption>A list of your recent  posted jobs</TableCaption>
+                <TableCaption>A list of your recent  posted jobs</TableCaption>
                 <TableHeader>
                     <TableRow>
                         <TableHead>Company Name</TableHead>
@@ -38,7 +39,7 @@ const AdminJobsTable = () => {
                 <TableBody>
                     {
                         filterJobs?.map((job) => (
-                            <tr>
+                            <tr key={job._id}> {/* Added key property */}
                                 <TableCell>{job?.company?.name}</TableCell>
                                 <TableCell>{job?.title}</TableCell>
                                 <TableCell>{job?.createdAt.split("T")[0]}</TableCell>
@@ -46,9 +47,13 @@ const AdminJobsTable = () => {
                                     <Popover>
                                         <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
                                         <PopoverContent className="w-32">
-                                            <div onClick={()=> navigate(`/admin/companies/${job._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
-                                                <Edit2 className='w-4' />
-                                                <span>Edit</span>
+                                            <div 
+                                                onClick={() => handleDeleteJob(job._id)} 
+                                                className='flex items-center gap-2 w-fit cursor-pointer text-red-600 hover:bg-red-50/50 p-1 rounded' 
+                                                >
+                                                {/* Trash2 is now defined because it was imported */}
+                                                <Trash2 className='w-4' /> 
+                                                <span>Delete</span>
                                             </div>
                                             <div onClick={()=> navigate(`/admin/jobs/${job._id}/applicants`)} className='flex items-center w-fit gap-2 cursor-pointer mt-2'>
                                                 <Eye className='w-4'/>

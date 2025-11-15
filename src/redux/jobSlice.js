@@ -11,7 +11,7 @@ const jobSlice = createSlice({
         searchedQuery:"",
     },
     reducers:{
-        // actions
+        // existing actions
         setAllJobs:(state,action) => {
             state.allJobs = action.payload;
         },
@@ -29,15 +29,28 @@ const jobSlice = createSlice({
         },
         setSearchedQuery:(state,action) => {
             state.searchedQuery = action.payload;
+        },
+        
+        // --- NEW REDUCER FOR DELETION ---
+        removeJobFromAdminJobs: (state, action) => {
+            const jobIdToDelete = action.payload;
+        
+            state.allAdminJobs = state.allAdminJobs.filter(
+                (job) => job._id !== jobIdToDelete
+            );
         }
+        
     }
 });
+
 export const {
     setAllJobs, 
     setSingleJob, 
     setAllAdminJobs,
     setSearchJobByText, 
     setAllAppliedJobs,
-    setSearchedQuery
+    setSearchedQuery,
+    removeJobFromAdminJobs // <--- NEW ACTION EXPORTED
 } = jobSlice.actions;
+
 export default jobSlice.reducer;
