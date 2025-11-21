@@ -16,7 +16,7 @@ const AdminJobsTable = () => {
 
     const handleDeleteJob = (id) =>{
         console.log(id);
-        axios.delete(`https://job-portal-backend-mvc2.vercel.app/api/v1/job/delete/${id}`)
+        axios.delete(`https://job-portal-backend-mvc2.onrender.com/api/v1/job/delete/${id}`)
         .then(res =>console.log(res.data))
         .catch(err => console.log(err))
     }
